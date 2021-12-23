@@ -23,7 +23,6 @@ public class CenterPanel extends JPanel{
 			numberButtons[i].setPreferredSize(new Dimension(50, 50));
 			
 			if(i<4 || i==numberStrings.length-4 || i==numberStrings.length-2) {
-//				numberButtons[i].setOpaque(true);
 				numberButtons[i].setBackground(Color.orange);
 				if (i==0) numberButtons[i].addActionListener(new BraketListener());
 				else if (i<=2) numberButtons[i].addActionListener(new NumberListener());
@@ -36,8 +35,6 @@ public class CenterPanel extends JPanel{
 				else numberButtons[i].setBackground(Color.orange);
 				numberButtons[i].addActionListener(new NumberListener());
 			}
-			
-//			numberButtons[i].setForeground(Color.WHITE);
 			add(numberButtons[i]);
 		}
 	}

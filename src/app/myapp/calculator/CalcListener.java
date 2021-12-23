@@ -28,10 +28,10 @@ public class CalcListener implements ActionListener, FormulaJudge {
 			stringToList(inputFormula);
 			
 //			formulaList 확인 
-//			for(int i=0; i<formulaList.size(); i++) {
-//				System.out.println(formulaList.get(i));
-//			}
-//			System.out.println();
+			for(int i=0; i<formulaList.size(); i++) {
+				System.out.println(formulaList.get(i));
+			}
+			System.out.println();
 			
 			PostfixConverter conveter = new PostfixConverter();
 			postfixFormula = conveter.postfixConvert(formulaList);
@@ -52,8 +52,13 @@ public class CalcListener implements ActionListener, FormulaJudge {
 		
 		for(int i=0; i<inputFormula.length(); i++) {
 			String formulaChar = String.valueOf(inputFormula.charAt(i));
-			if(i+1 > inputFormula.length()) { //마지막 자리일 때 
-				formulaList.add(inputFormula.substring(pre));
+			if(i+1 >= inputFormula.length()) { //마지막 자리일 때 
+				if(inputFormula.charAt(inputFormula.length()-1)==')') {
+					formulaList.add(inputFormula.substring(inputFormula.length()-1));
+				}
+				else {
+					formulaList.add(inputFormula.substring(pre));
+				}
 				break;
 			}
 			else if(formulaChar.equals("(")) {
@@ -82,7 +87,14 @@ public class CalcListener implements ActionListener, FormulaJudge {
 				pre = i+1;
 			}
 			else if (!isOperand(formulaChar)) {
-				formulaList.add(inputFormula.substring(pre, i+1));
+				if(isOperand(String.valueOf(inputFormula.charAt(i-1)))) {
+					formulaList.add(inputFormula.substring(pre, i));
+					formulaList.add(inputFormula.substring(i, i+1));
+				}
+				else {
+	//				formulaList.add(inputFormula.substring(pre, i)+"@");
+					formulaList.add(inputFormula.substring(i, i+1));
+				}
 				pre = i+1;
 				continue;
 			}
